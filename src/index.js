@@ -43,7 +43,7 @@ export default function wasmWorker(source, options = {}) {
               }, getTransferableParams(params));
             }),
           }), {}),
-          run: (func, params) => new Promise((...rest) => {
+          run: (func, params, canvas) => new Promise((...rest) => {
             // eslint-disable-next-line
             promises[++currentId] = rest;
             worker.postMessage({
@@ -53,6 +53,7 @@ export default function wasmWorker(source, options = {}) {
                 func: func.toString(),
                 params,
               },
+              canvas
             }, getTransferableParams(params));
           }),
         });
