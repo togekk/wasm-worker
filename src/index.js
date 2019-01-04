@@ -46,6 +46,8 @@ export default function wasmWorker(source, options = {}) {
           run: (func, params, canvas) => new Promise((...rest) => {
             // eslint-disable-next-line
             promises[++currentId] = rest;
+            const arr = getTransferableParams(params);
+            if (canvas) arr.push(canvas);
             worker.postMessage({
               id: currentId,
               action: ACTIONS.RUN_FUNCTION,
@@ -53,8 +55,8 @@ export default function wasmWorker(source, options = {}) {
                 func: func.toString(),
                 params,
               },
-              canvas
-            }, getTransferableParams(params));
+              canvas,
+            }, arr);
           }),
         });
       } else if (result === 1) {

@@ -1,5 +1,5 @@
 export default function worker(e) {
-  const { id, action, payload } = e.data;
+  const { id, action, payload, canvas } = e.data;
 
   const sendMessage = (result, data) => {
     self.postMessage({
@@ -74,6 +74,7 @@ export default function worker(e) {
           instance: moduleInstance,
           importObject,
           params,
+          canvas,
         }));
       })
       .catch(onError);
