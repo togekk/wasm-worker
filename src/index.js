@@ -9,7 +9,7 @@ const getTransferableParams = (params = []) =>
     (x instanceof ImageBitmap)
   ));
 
-export default function wasmWorker(source, options = {}) {
+export default function wasmWorker(source, options = {}, canvas) {
   let currentId = 0;
   const promises = {};
   const { getImportObject, ...otherOptions } = options;
@@ -43,7 +43,7 @@ export default function wasmWorker(source, options = {}) {
               }, getTransferableParams(params));
             }),
           }), {}),
-          run: (func, params, canvas) => new Promise((...rest) => {
+          run: (func, params) => new Promise((...rest) => {
             // eslint-disable-next-line
             promises[++currentId] = rest;
             const arr = getTransferableParams(params);
