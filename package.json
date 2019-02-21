@@ -21,7 +21,7 @@
     "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --env.prod src/index.js dist/wasm-worker.min.js",
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
     "prepublish": "npm run clean && npm run check:src && npm run build",
-    "postinstall": "yarn",
+    "postinstall": "npm install && npm run clean && npm run check:src && npm run build",
     "lint": "eslint src test build"
   },
   "repository": {
